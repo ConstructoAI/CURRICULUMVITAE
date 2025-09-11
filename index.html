@@ -3,12 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="CV de Sylvain Leduc - Architecte logiciel et entrepreneur, créateur de 8+ applications IA (25,000+ lignes Python). Fondateur de Constructo AI avec la première base de connaissances mondiale de 60+ experts construction. Applications: EXPERTS IA, ERP AI, B2B, TAKEOFF AI, C2B, SEAOP, FONDS PRÉVOYANCE, EMAILS AI.">
+    <meta name="description" content="CV de Sylvain Leduc - Architecte logiciel et entrepreneur, créateur de 6 applications IA (500,000+ lignes Python). Fondateur de Constructo AI avec la première base de connaissances mondiale de 60+ experts construction. Applications: EXPERTS IA, ERP AI, B2B, TAKEOFF AI, C2B, SEAOP, FONDS PRÉVOYANCE, EMAILS AI.">
     <meta name="keywords" content="Sylvain Leduc, CV, Constructo AI, JFS Construction, Développeur IA, Chargé de projets, CAO, Python, Construction Québec, TakeOff AI, EXPERTS IA, ERP AI, B2B, C2B, SEAOP">
     <meta name="author" content="Sylvain Leduc">
     <meta name="robots" content="index, follow">
     <meta property="og:title" content="CV - Sylvain Leduc - Expert Construction & IA">
-    <meta property="og:description" content="Créateur de 8+ applications IA totalisant 25,000+ lignes de code. Base de connaissances unique avec 60+ profils d'experts construction (2,400+ années d'expérience). Expertise Python, Streamlit, Claude API, architecture enterprise.">
+    <meta property="og:description" content="Créateur de 6 applications IA totalisant 500,000+ lignes de code. Base de connaissances unique avec 60+ profils d'experts construction (2,400+ années d'expérience). Expertise Python, Streamlit, Claude API, architecture enterprise.">
     <meta property="og:type" content="profile">
     <meta property="og:url" content="https://www.constructoai.com">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -187,6 +187,28 @@
             overflow: hidden;
         }
         
+        /* Photo de profil */
+        .profile-photo {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            border: 5px solid var(--white);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+            object-fit: cover;
+            transition: var(--transition);
+        }
+        
+        .profile-photo:hover {
+            transform: scale(1.05);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+        }
+        
+        .header-right {
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+        }
+        
         .cv-header::before {
             content: '';
             position: absolute;
@@ -277,6 +299,27 @@
             box-shadow: var(--shadow-sm);
             transition: var(--transition);
             page-break-inside: avoid;
+        }
+        
+        /* Badge Open Source */
+        .open-source-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            color: var(--white);
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 0.85em;
+            font-weight: 600;
+            margin-left: 15px;
+            box-shadow: 0 2px 8px rgba(16, 185, 129, 0.3);
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
         }
         
         .section:hover {
@@ -853,6 +896,13 @@
                 print-color-adjust: exact;
             }
             
+            .profile-photo {
+                width: 120px !important;
+                height: 120px !important;
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+            
             .skill-tag {
                 background: var(--navy-accent) !important;
                 -webkit-print-color-adjust: exact;
@@ -886,6 +936,21 @@
             
             .left-column {
                 flex: 1;
+            }
+            
+            .header-content {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .header-right {
+                margin-top: 20px;
+                justify-content: center;
+            }
+            
+            .profile-photo {
+                width: 120px;
+                height: 120px;
             }
         }
     </style>
@@ -953,6 +1018,9 @@
                         <span>📞 <span class="editable-field" contenteditable="false" data-field="phone">(514) 820-1972</span></span>
                         <span>✉️ <a href="mailto:sylvainleduc2000@gmail.com" class="editable-field" contenteditable="false" data-field="email">sylvainleduc2000@gmail.com</a></span>
                     </div>
+                </div>
+                <div class="header-right">
+                    <img src="Sylvain.jpg" alt="Sylvain Leduc" class="profile-photo">
                 </div>
             </div>
         </div>
@@ -1024,6 +1092,20 @@
                         </div>
                         
                         <div class="skill-category">
+                            <h4>Suite Microsoft 365</h4>
+                            <div class="skill-tags">
+                                <span class="skill-tag">Excel Avancé</span>
+                                <span class="skill-tag">VBA/Macros</span>
+                                <span class="skill-tag">Word</span>
+                                <span class="skill-tag">PowerPoint</span>
+                                <span class="skill-tag">Teams</span>
+                                <span class="skill-tag">SharePoint</span>
+                                <span class="skill-tag">OneDrive</span>
+                                <span class="skill-tag">Outlook</span>
+                            </div>
+                        </div>
+                        
+                        <div class="skill-category">
                             <h4>Gestion & Leadership</h4>
                             <div class="skill-tags">
                                 <span class="skill-tag">Gestion de Chantier</span>
@@ -1035,8 +1117,8 @@
                         <div class="skill-category">
                             <h4>Réalisations en chiffres</h4>
                             <div class="skill-tags">
-                                <span class="skill-tag">8+ Applications</span>
-                                <span class="skill-tag">25,000+ Lignes</span>
+                                <span class="skill-tag">6 Applications</span>
+                                <span class="skill-tag">500,000+ Lignes</span>
                                 <span class="skill-tag">60+ Experts IA</span>
                                 <span class="skill-tag">75K+ Utilisateurs potentiels</span>
                                 <span class="skill-tag">200+ Modules</span>
@@ -1068,8 +1150,8 @@
                         <li>Lecture de Plans & Devis</li>
                         <li>Normes Québécoises</li>
                         <li>Inspection de soudure</li>
-                        <li>Solutions IA pour la construction (8+ applications)</li>
-                        <li>Développement Full-Stack (25,000+ lignes)</li>
+                        <li>Solutions IA pour la construction (6 applications)</li>
+                        <li>Développement Full-Stack (500,000+ lignes)</li>
                         <li>Systèmes ERP industriels (61 postes de travail)</li>
                         <li>Plateformes B2B/C2B avec workflows complexes</li>
                         <li>Bases de connaissances IA (60+ experts)</li>
@@ -1133,7 +1215,7 @@
                 
                 <!-- Applications en ligne -->
                 <div class="section">
-                    <h3>🚀 Applications Déployées (Hugging Face)</h3>
+                    <h3>🚀 Applications Déployées - Open Source & Gratuites</h3>
                     <div class="apps-grid">
                         <a href="https://huggingface.co/spaces/Sylvainleduc/PORTAIL" target="_blank" class="app-card">
                             <span class="app-icon">🌐</span>
@@ -1180,13 +1262,13 @@
                 <div class="profile-section">
                     <h3>Profil Professionnel</h3>
                     <p>
-                        Architecte logiciel et entrepreneur visionnaire avec 15+ ans d'expérience, créateur d'un écosystème révolutionnaire de 8+ applications IA 
-                        totalisant 25,000+ lignes de code Python. Fondateur de Constructo AI, comprenant la première base de connaissances 
+                        Architecte logiciel et entrepreneur visionnaire avec 15+ ans d'expérience, créateur d'un écosystème révolutionnaire de 6 applications IA 
+                        totalisant 500,000+ lignes de code Python, <strong>entièrement GRATUITES et OPEN SOURCE</strong>. Fondateur de Constructo AI, comprenant la première base de connaissances 
                         construction au monde avec 60+ profils d'experts virtuels (2,400+ années d'expérience cumulée). Expertise unique combinant maîtrise technique 
                         avancée (Python, Streamlit, Claude API, architecture modulaire) et connaissance approfondie du secteur construction québécois. 
-                        Entrepreneur Général chez JFS Construction, spécialisé dans la réalisation de projets résidentiels intégrant une philosophie 
-                        de "Structures Pensées, Espaces Réinventés". Approche méthodique axée sur l'efficacité et la fiabilité dans toutes les phases 
-                        de projet. Capacité éprouvée à développer des outils technologiques pratiques et à les appliquer concrètement sur le terrain.
+                        Philosophie d'innovation ouverte : toutes les solutions développées sont accessibles librement pour démocratiser l'IA dans l'industrie de la construction. 
+                        Approche méthodique axée sur l'efficacité, la fiabilité et le partage de connaissances. Capacité éprouvée à développer des outils technologiques 
+                        pratiques et à les appliquer concrètement sur le terrain.
                     </p>
                 </div>
                 
@@ -1204,9 +1286,9 @@
                         </div>
                         <div class="experience-description">
                             <div class="achievement-box">
-                                <h4>Réalisations clés - Écosystème de 8+ applications IA:</h4>
+                                <h4>Réalisations clés - Écosystème de 6 applications IA <span class="open-source-badge">🔓 Open Source</span></h4>
                                 <ul>
-                                    <li><strong>📈 Volume total:</strong> 25,000+ lignes de code Python professionnel, 200+ fichiers modulaires, 50+ tables de bases de données - <strong>GRATUIT & OPEN SOURCE</strong></li>
+                                    <li><strong>📈 Volume total:</strong> 500,000+ lignes de code Python professionnel, 200+ fichiers modulaires, 50+ tables de bases de données - <strong>GRATUIT & OPEN SOURCE</strong></li>
                                     <li><strong>EXPERTS IA (6,000+ lignes):</strong> Révolutionnaire base de connaissances avec 60+ profils d'experts construction. Technologies: Claude API, PyPDF2, python-docx. <a href="https://huggingface.co/spaces/Sylvainleduc/EXPERTS_IA" target="_blank" class="app-link">🔗 Accéder à l'application</a></li>
                                     <li><strong>ERP AI (50+ fichiers):</strong> Solution ERP complète avec 61 postes de travail industriels pré-configurés. Modules: Production, CRM, RH, Inventaire. <a href="https://huggingface.co/spaces/Sylvainleduc/ERP_AI" target="_blank" class="app-link">🔗 Accéder à l'application</a></li>
                                     <li><strong>B2B CONSTRUCTION (4,500+ lignes):</strong> Plateforme B2B avec workflow d'approbation 5 étapes, système d'évaluation multi-critères. <a href="https://huggingface.co/spaces/Sylvainleduc/B2B" target="_blank" class="app-link">🔗 Accéder à l'application</a></li>
