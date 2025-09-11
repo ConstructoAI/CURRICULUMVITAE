@@ -13,7 +13,7 @@
     <meta property="og:url" content="https://www.constructoai.com">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <link rel="canonical" href="https://www.constructoai.com/cv">
-    <title>CV - Sylvain Leduc - Dessinateur-Concepteur | Chargé de Projets | Développeur IA | Entrepreneur Général</title>
+    <title>CV - Sylvain Leduc - Dessinateur-Concepteur | Chargé de Projets | Développeur IA | Entrepreneur</title>
     <style>
         /* Variables CSS */
         :root {
@@ -653,6 +653,166 @@
             border: 2px solid var(--navy-accent);
         }
         
+        /* Galerie Portfolio */
+        .portfolio-section {
+            margin-top: 25px;
+        }
+        
+        .portfolio-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-top: 15px;
+        }
+        
+        .portfolio-item {
+            position: relative;
+            overflow: hidden;
+            border-radius: 8px;
+            box-shadow: var(--shadow-sm);
+            transition: var(--transition);
+            cursor: pointer;
+            background: var(--gray-light);
+            aspect-ratio: 16/9;
+        }
+        
+        .portfolio-item:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-lg);
+        }
+        
+        .portfolio-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: var(--transition);
+        }
+        
+        .portfolio-item:hover img {
+            transform: scale(1.1);
+        }
+        
+        .portfolio-item video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .portfolio-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(to top, rgba(10, 22, 40, 0.9), transparent);
+            color: var(--white);
+            padding: 10px;
+            transform: translateY(100%);
+            transition: var(--transition);
+        }
+        
+        .portfolio-item:hover .portfolio-overlay {
+            transform: translateY(0);
+        }
+        
+        .portfolio-title {
+            font-weight: 600;
+            font-size: 0.9em;
+            margin-bottom: 4px;
+        }
+        
+        .portfolio-description {
+            font-size: 0.8em;
+            opacity: 0.9;
+        }
+        
+        /* Modal pour visualisation plein écran */
+        .image-modal {
+            display: none;
+            position: fixed;
+            z-index: 2001;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.95);
+            animation: fadeIn 0.3s ease;
+        }
+        
+        .image-modal.show {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .modal-content {
+            max-width: 90%;
+            max-height: 90%;
+            position: relative;
+        }
+        
+        .modal-content img,
+        .modal-content video {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            border-radius: 8px;
+        }
+        
+        .modal-close {
+            position: absolute;
+            top: 20px;
+            right: 40px;
+            color: var(--white);
+            font-size: 40px;
+            font-weight: bold;
+            cursor: pointer;
+            z-index: 2002;
+            transition: var(--transition);
+        }
+        
+        .modal-close:hover {
+            color: var(--navy-accent);
+            transform: scale(1.2);
+        }
+        
+        .modal-nav {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--white);
+            font-size: 30px;
+            cursor: pointer;
+            padding: 10px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 4px;
+            transition: var(--transition);
+        }
+        
+        .modal-nav:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+        
+        .modal-prev {
+            left: 20px;
+        }
+        
+        .modal-next {
+            right: 20px;
+        }
+        
+        .modal-caption {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: var(--white);
+            text-align: center;
+            padding: 10px 20px;
+            background: rgba(10, 22, 40, 0.8);
+            border-radius: 8px;
+            font-size: 14px;
+        }
+        
         /* Mode impression */
         @media print {
             @page {
@@ -768,6 +928,18 @@
     <div class="loading-overlay" id="loadingOverlay">
         <div class="loading-spinner"></div>
     </div>
+    
+    <!-- Modal pour images -->
+    <div class="image-modal" id="imageModal">
+        <span class="modal-close" onclick="closeModal()">&times;</span>
+        <span class="modal-nav modal-prev" onclick="changeImage(-1)">&#10094;</span>
+        <span class="modal-nav modal-next" onclick="changeImage(1)">&#10095;</span>
+        <div class="modal-content">
+            <img id="modalImage" src="" alt="">
+            <video id="modalVideo" src="" controls style="display:none;"></video>
+        </div>
+        <div class="modal-caption" id="modalCaption"></div>
+    </div>
 
     <div class="container">
         <!-- Header du CV -->
@@ -775,7 +947,7 @@
             <div class="header-content">
                 <div class="header-left">
                     <h1 class="editable-field" contenteditable="false" data-field="name">Sylvain Leduc</h1>
-                    <h2 class="editable-field" contenteditable="false" data-field="title">Dessinateur-Concepteur | Chargé de Projets | Développeur IA | Entrepreneur Général</h2>
+                    <h2 class="editable-field" contenteditable="false" data-field="title">Dessinateur-Concepteur | Chargé de Projets | Développeur IA | Entrepreneur</h2>
                     <div class="contact-info">
                         <span>📍 <span class="editable-field" contenteditable="false" data-field="address">1760 rue Jacques-Cartier Sud, J2N 1Y8, Farnham</span></span>
                         <span>📞 <span class="editable-field" contenteditable="false" data-field="phone">(514) 820-1972</span></span>
@@ -802,6 +974,10 @@
                                 <span class="skill-tag">Prompt Engineering</span>
                                 <span class="skill-tag">Architecture Modulaire</span>
                                 <span class="skill-tag">SQLite</span>
+                                <span class="skill-tag">Intégration IA Enterprise</span>
+                                <span class="skill-tag">Analyse Prédictive</span>
+                                <span class="skill-tag">Chatbots IA</span>
+                                <span class="skill-tag">Vision par Ordinateur</span>
                             </div>
                         </div>
                         
@@ -899,47 +1075,100 @@
                         <li>Bases de connaissances IA (60+ experts)</li>
                         <li>Architecture enterprise-grade sécurisée</li>
                         <li>Conformité légale Québec (RBQ, C.c.Q.)</li>
+                        <li>Intégration IA en entreprise: analyse prédictive, chatbots, automatisation</li>
+                        <li>Formation et accompagnement transformation numérique</li>
                     </ul>
+                </div>
+                
+                <!-- Portfolio / Réalisations visuelles -->
+                <div class="section portfolio-section">
+                    <h3>🎨 Portfolio - Réalisations Visuelles</h3>
+                    <div class="portfolio-grid">
+                        <div class="portfolio-item" onclick="openModal('SKETCH.jpg', 'Sketch Conceptuel', 'Croquis de conception architecturale')">
+                            <img src="SKETCH.jpg" alt="Sketch Conceptuel" loading="lazy">
+                            <div class="portfolio-overlay">
+                                <div class="portfolio-title">Sketch Conceptuel</div>
+                                <div class="portfolio-description">Croquis architectural</div>
+                            </div>
+                        </div>
+                        <div class="portfolio-item" onclick="openModal('SOLARIUM_01.jpg', 'Solarium - Vue 1', 'Conception 3D de solarium résidentiel')">
+                            <img src="SOLARIUM_01.jpg" alt="Solarium Vue 1" loading="lazy">
+                            <div class="portfolio-overlay">
+                                <div class="portfolio-title">Solarium - Vue 1</div>
+                                <div class="portfolio-description">Modélisation 3D</div>
+                            </div>
+                        </div>
+                        <div class="portfolio-item" onclick="openModal('SOLARIUM_02.jpg', 'Solarium - Vue 2', 'Perspective intérieure du solarium')">
+                            <img src="SOLARIUM_02.jpg" alt="Solarium Vue 2" loading="lazy">
+                            <div class="portfolio-overlay">
+                                <div class="portfolio-title">Solarium - Vue 2</div>
+                                <div class="portfolio-description">Vue intérieure</div>
+                            </div>
+                        </div>
+                        <div class="portfolio-item" onclick="openModal('SOLARIUM_03.jpg', 'Solarium - Vue 3', 'Détails de construction')">
+                            <img src="SOLARIUM_03.jpg" alt="Solarium Vue 3" loading="lazy">
+                            <div class="portfolio-overlay">
+                                <div class="portfolio-title">Solarium - Vue 3</div>
+                                <div class="portfolio-description">Détails techniques</div>
+                            </div>
+                        </div>
+                        <div class="portfolio-item" onclick="playVideo(this, 'RENDU_3D.mp4')">
+                            <video src="RENDU_3D.mp4" muted loop preload="metadata">
+                                Votre navigateur ne supporte pas la vidéo.
+                            </video>
+                            <div class="portfolio-overlay">
+                                <div class="portfolio-title">Animation 3D</div>
+                                <div class="portfolio-description">Rendu architectural animé</div>
+                            </div>
+                        </div>
+                        <div class="portfolio-item" onclick="openModal('NATCOM.png', 'Brûleur Industriel Natcom', 'Système de combustion industriel - Modélisation 3D complexe')">
+                            <img src="NATCOM.png" alt="Brûleur Industriel Natcom" loading="lazy">
+                            <div class="portfolio-overlay">
+                                <div class="portfolio-title">Brûleur Industriel</div>
+                                <div class="portfolio-description">Tuyauterie & Mécanique 3D</div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
                 
                 <!-- Applications en ligne -->
                 <div class="section">
-                    <h3>🚀 Applications Déployées</h3>
+                    <h3>🚀 Applications Déployées (Hugging Face)</h3>
                     <div class="apps-grid">
-                        <a href="https://experts-ai.onrender.com/" target="_blank" class="app-card">
+                        <a href="https://huggingface.co/spaces/Sylvainleduc/PORTAIL" target="_blank" class="app-card">
+                            <span class="app-icon">🌐</span>
+                            <span class="app-name">PORTAIL</span>
+                            <span class="app-desc">Hub central Constructo AI</span>
+                        </a>
+                        <a href="https://huggingface.co/spaces/Sylvainleduc/EXPERTS_IA" target="_blank" class="app-card">
                             <span class="app-icon">🤖</span>
                             <span class="app-name">EXPERTS IA</span>
                             <span class="app-desc">60+ profils d'experts</span>
                         </a>
-                        <a href="https://erp-ai-perso.onrender.com/" target="_blank" class="app-card">
+                        <a href="https://huggingface.co/spaces/Sylvainleduc/ERP_AI" target="_blank" class="app-card">
                             <span class="app-icon">🏭</span>
                             <span class="app-name">ERP AI</span>
                             <span class="app-desc">61 postes industriels</span>
                         </a>
-                        <a href="https://b2b-pbr8.onrender.com/" target="_blank" class="app-card">
+                        <a href="https://huggingface.co/spaces/Sylvainleduc/B2B" target="_blank" class="app-card">
                             <span class="app-icon">🤝</span>
                             <span class="app-name">B2B</span>
                             <span class="app-desc">Plateforme inter-entreprises</span>
                         </a>
-                        <a href="https://c2b-cs4p.onrender.com/" target="_blank" class="app-card">
+                        <a href="https://huggingface.co/spaces/Sylvainleduc/C2B" target="_blank" class="app-card">
                             <span class="app-icon">👥</span>
                             <span class="app-name">C2B</span>
                             <span class="app-desc">Portail client-entreprise</span>
                         </a>
-                        <a href="https://takeoff-ai.onrender.com/" target="_blank" class="app-card">
+                        <a href="https://huggingface.co/spaces/Sylvainleduc/TAKEOFF_AI" target="_blank" class="app-card">
                             <span class="app-icon">📏</span>
                             <span class="app-name">TAKEOFF AI</span>
                             <span class="app-desc">Mesures PDF intelligentes</span>
                         </a>
-                        <a href="https://seaop.onrender.com/" target="_blank" class="app-card">
+                        <a href="https://huggingface.co/spaces/Sylvainleduc/SEAOP" target="_blank" class="app-card">
                             <span class="app-icon">📢</span>
                             <span class="app-name">SEAOP</span>
                             <span class="app-desc">Appels d'offres publics</span>
-                        </a>
-                        <a href="https://constructoai.github.io/FEUILLE_SOUMISSION/" target="_blank" class="app-card">
-                            <span class="app-icon">📄</span>
-                            <span class="app-name">SOUMISSION</span>
-                            <span class="app-desc">Feuilles de soumission</span>
                         </a>
                     </div>
                 </div>
@@ -977,14 +1206,14 @@
                             <div class="achievement-box">
                                 <h4>Réalisations clés - Écosystème de 8+ applications IA:</h4>
                                 <ul>
-                                    <li><strong>📈 Volume total:</strong> 25,000+ lignes de code Python professionnel, 200+ fichiers modulaires, 50+ tables de bases de données</li>
-                                    <li><strong>EXPERTS IA (6,000+ lignes):</strong> Révolutionnaire base de connaissances avec 60+ profils d'experts construction. Technologies: Claude API, PyPDF2, python-docx. <a href="https://experts-ai.onrender.com/" target="_blank" class="app-link">🔗 Accéder à l'application</a></li>
-                                    <li><strong>ERP AI (50+ fichiers):</strong> Solution ERP complète avec 61 postes de travail industriels pré-configurés. Modules: Production, CRM, RH, Inventaire. <a href="https://erp-ai-perso.onrender.com/" target="_blank" class="app-link">🔗 Accéder à l'application</a></li>
-                                    <li><strong>B2B CONSTRUCTION (4,500+ lignes):</strong> Plateforme B2B avec workflow d'approbation 5 étapes, système d'évaluation multi-critères. <a href="https://b2b-pbr8.onrender.com/" target="_blank" class="app-link">🔗 Accéder à l'application</a></li>
-                                    <li><strong>TAKEOFF AI (36+ fichiers):</strong> Système d'estimation avec mesures PDF interactives, accrochage intelligent automatique. <a href="https://takeoff-ai.onrender.com/" target="_blank" class="app-link">🔗 Accéder à l'application</a></li>
-                                    <li><strong>C2B CONSTRUCTION (7,200+ lignes):</strong> Portail client-entreprise mono-déployable avec configuration automatisée. <a href="https://c2b-cs4p.onrender.com/" target="_blank" class="app-link">🔗 Accéder à l'application</a></li>
-                                    <li><strong>SEAOP (3,000+ lignes):</strong> Système Électronique d'Appel d'Offres Public avec intelligence délais. <a href="https://seaop.onrender.com/" target="_blank" class="app-link">🔗 Accéder à l'application</a></li>
-                                    <li><strong>FEUILLE DE SOUMISSION:</strong> Outil de création de soumissions professionnelles pour entrepreneurs. <a href="https://constructoai.github.io/FEUILLE_SOUMISSION/" target="_blank" class="app-link">🔗 Accéder à l'application</a></li>
+                                    <li><strong>📈 Volume total:</strong> 25,000+ lignes de code Python professionnel, 200+ fichiers modulaires, 50+ tables de bases de données - <strong>GRATUIT & OPEN SOURCE</strong></li>
+                                    <li><strong>EXPERTS IA (6,000+ lignes):</strong> Révolutionnaire base de connaissances avec 60+ profils d'experts construction. Technologies: Claude API, PyPDF2, python-docx. <a href="https://huggingface.co/spaces/Sylvainleduc/EXPERTS_IA" target="_blank" class="app-link">🔗 Accéder à l'application</a></li>
+                                    <li><strong>ERP AI (50+ fichiers):</strong> Solution ERP complète avec 61 postes de travail industriels pré-configurés. Modules: Production, CRM, RH, Inventaire. <a href="https://huggingface.co/spaces/Sylvainleduc/ERP_AI" target="_blank" class="app-link">🔗 Accéder à l'application</a></li>
+                                    <li><strong>B2B CONSTRUCTION (4,500+ lignes):</strong> Plateforme B2B avec workflow d'approbation 5 étapes, système d'évaluation multi-critères. <a href="https://huggingface.co/spaces/Sylvainleduc/B2B" target="_blank" class="app-link">🔗 Accéder à l'application</a></li>
+                                    <li><strong>TAKEOFF AI (36+ fichiers):</strong> Système d'estimation avec mesures PDF interactives, accrochage intelligent automatique. <a href="https://huggingface.co/spaces/Sylvainleduc/TAKEOFF_AI" target="_blank" class="app-link">🔗 Accéder à l'application</a></li>
+                                    <li><strong>C2B CONSTRUCTION (7,200+ lignes):</strong> Portail client-entreprise mono-déployable avec configuration automatisée. <a href="https://huggingface.co/spaces/Sylvainleduc/C2B" target="_blank" class="app-link">🔗 Accéder à l'application</a></li>
+                                    <li><strong>SEAOP (3,000+ lignes):</strong> Système Électronique d'Appel d'Offres Public avec intelligence délais. <a href="https://huggingface.co/spaces/Sylvainleduc/SEAOP" target="_blank" class="app-link">🔗 Accéder à l'application</a></li>
+                                    <li><strong>PORTAIL CONSTRUCTO AI:</strong> Hub central donnant accès aux 6 applications de l'écosystème. <a href="https://huggingface.co/spaces/Sylvainleduc/PORTAIL" target="_blank" class="app-link">🔗 Accéder au portail</a></li>
                                     <li><strong>Architecture d'excellence:</strong> Modularité avancée, sécurité enterprise-grade, déploiement Docker/Render/Heroku ready, tests unitaires >80%</li>
                                     <li><strong>Impact marché:</strong> Marché adressable 75,000+ professionnels construction Québec. Propriété intellectuelle unique impossible à reproduire</li>
                                 </ul>
@@ -995,36 +1224,23 @@
                     <div class="experience-item">
                         <div class="experience-header">
                             <div class="experience-title">
-                                <h4>Entrepreneur Général</h4>
-                                <div class="experience-company">JFS Construction - Farnham, Canada</div>
-                            </div>
-                            <div class="experience-date">03/2024 - Présent</div>
-                        </div>
-                        <div class="experience-description">
-                            <ul>
-                                <li>Gestion opérationnelle de projets de construction et rénovation résidentielle</li>
-                                <li>Application de la philosophie "Structures Pensées, Espaces Réinventés"</li>
-                                <li>Planification détaillée, supervision de l'exécution, contrôle qualité</li>
-                                <li>Coordination efficace des sous-traitants et fournisseurs</li>
-                                <li>Mise en œuvre de solutions techniques optimisées</li>
-                            </ul>
-                        </div>
-                    </div>
-                    
-                    <div class="experience-item">
-                        <div class="experience-header">
-                            <div class="experience-title">
                                 <h4>Chargé de Projets</h4>
                                 <div class="experience-company">Projets Kdi - Farnham, Canada</div>
                             </div>
-                            <div class="experience-date">01/2014 - 11/2024</div>
+                            <div class="experience-date">01/2014 - Présent</div>
                         </div>
                         <div class="experience-description">
                             <ul>
+                                <li><strong>Consultant autonome:</strong> Services tarifaires flexibles (35$/h engagement garanti ou 75$/h flexibilité absolue)</li>
                                 <li>Gestion de projets multidisciplinaires (architecture, mécanique, métal en feuille, tuyauterie)</li>
                                 <li>Élaboration de plans et conception en collaboration avec ingénieurs et architectes</li>
-                                <li>Gestion complète du cycle de vie des projets</li>
-                                <li>Estimation en structure (Adam Lumber, Structure Évolution)</li>
+                                <li>Gestion complète du cycle de vie des projets avec suivi hebdomadaire</li>
+                                <li>Estimation détaillée et analyse comparative des soumissions</li>
+                                <li>Préparation de budgets prévisionnels et optimisation des coûts</li>
+                                <li>Services de dessin technique: plans d'exécution, modélisation 3D, visualisation de projets</li>
+                                <li><strong>Intégration IA en entreprise:</strong> Analyse prédictive, chatbots, automatisation intelligente, reconnaissance d'images pour inspection</li>
+                                <li>Développement d'applications personnalisées: gestion de chantiers, tableaux de bord interactifs, bases de données</li>
+                                <li>Formation et accompagnement à l'adoption d'outils IA</li>
                                 <li><strong>Clients notables:</strong> Adam Lumber, Structure Évolution, Médical PM, Slik, Smardt, Usimm, Technifab</li>
                             </ul>
                         </div>
@@ -1072,7 +1288,7 @@
                                 <h4>Dessinateur-Concepteur</h4>
                                 <div class="experience-company">SMS Multipro - Montréal, Canada</div>
                             </div>
-                            <div class="experience-date">10/2009 - 12/2010</div>
+                            <div class="experience-date">10/2004 - 12/2010</div>
                         </div>
                         <div class="experience-description">
                             <ul>
@@ -1361,7 +1577,7 @@
                 // Réinitialiser les champs éditables
                 const defaultValues = {
                     name: 'Sylvain Leduc',
-                    title: 'Dessinateur-Concepteur | Chargé de Projets | Développeur IA | Entrepreneur Général',
+                    title: 'Dessinateur-Concepteur | Chargé de Projets | Développeur IA | Entrepreneur',
                     address: '1760 rue Jacques-Cartier Sud, J2N 1Y8, Farnham',
                     phone: '(514) 820-1972',
                     email: 'sylvainleduc2000@gmail.com'
@@ -1455,6 +1671,107 @@
             }
         }
         
+        // Gestion du portfolio et modal
+        let currentImageIndex = 0;
+        const portfolioImages = [
+            { src: 'SKETCH.jpg', title: 'Sketch Conceptuel', desc: 'Croquis de conception architecturale' },
+            { src: 'SOLARIUM_01.jpg', title: 'Solarium - Vue 1', desc: 'Conception 3D de solarium résidentiel' },
+            { src: 'SOLARIUM_02.jpg', title: 'Solarium - Vue 2', desc: 'Perspective intérieure du solarium' },
+            { src: 'SOLARIUM_03.jpg', title: 'Solarium - Vue 3', desc: 'Détails de construction' },
+            { src: 'RENDU_3D.mp4', title: 'Animation 3D', desc: 'Rendu architectural animé', isVideo: true },
+            { src: 'NATCOM.png', title: 'Brûleur Industriel Natcom', desc: 'Système de combustion industriel - Modélisation 3D complexe' }
+        ];
+        
+        function openModal(imageSrc, title, description) {
+            const modal = document.getElementById('imageModal');
+            const modalImg = document.getElementById('modalImage');
+            const modalVideo = document.getElementById('modalVideo');
+            const caption = document.getElementById('modalCaption');
+            
+            modal.classList.add('show');
+            
+            // Trouver l'index de l'image
+            currentImageIndex = portfolioImages.findIndex(img => img.src === imageSrc);
+            
+            if (imageSrc.endsWith('.mp4')) {
+                modalImg.style.display = 'none';
+                modalVideo.style.display = 'block';
+                modalVideo.src = imageSrc;
+                modalVideo.play();
+            } else {
+                modalVideo.style.display = 'none';
+                modalImg.style.display = 'block';
+                modalImg.src = imageSrc;
+            }
+            
+            caption.innerHTML = `<strong>${title}</strong><br>${description}`;
+        }
+        
+        function closeModal() {
+            const modal = document.getElementById('imageModal');
+            const modalVideo = document.getElementById('modalVideo');
+            
+            modal.classList.remove('show');
+            modalVideo.pause();
+            modalVideo.src = '';
+        }
+        
+        function changeImage(direction) {
+            currentImageIndex += direction;
+            
+            if (currentImageIndex >= portfolioImages.length) {
+                currentImageIndex = 0;
+            } else if (currentImageIndex < 0) {
+                currentImageIndex = portfolioImages.length - 1;
+            }
+            
+            const currentItem = portfolioImages[currentImageIndex];
+            openModal(currentItem.src, currentItem.title, currentItem.desc);
+        }
+        
+        function playVideo(element, videoSrc) {
+            const video = element.querySelector('video');
+            if (video.paused) {
+                video.play();
+                openModal(videoSrc, 'Animation 3D', 'Rendu architectural animé');
+            } else {
+                video.pause();
+            }
+        }
+        
+        // Hover effect pour les vidéos
+        document.addEventListener('DOMContentLoaded', function() {
+            const videoItems = document.querySelectorAll('.portfolio-item video');
+            videoItems.forEach(video => {
+                video.parentElement.addEventListener('mouseenter', () => {
+                    video.play();
+                });
+                video.parentElement.addEventListener('mouseleave', () => {
+                    video.pause();
+                });
+            });
+        });
+        
+        // Fermer le modal avec Escape
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                closeModal();
+            }
+            if (e.key === 'ArrowLeft' && document.getElementById('imageModal').classList.contains('show')) {
+                changeImage(-1);
+            }
+            if (e.key === 'ArrowRight' && document.getElementById('imageModal').classList.contains('show')) {
+                changeImage(1);
+            }
+        });
+        
+        // Fermer le modal en cliquant à l'extérieur
+        document.getElementById('imageModal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeModal();
+            }
+        });
+        
         // Exposition des fonctions globales
         window.exportPDF = exportPDF;
         window.saveCV = saveCV;
@@ -1462,6 +1779,10 @@
         window.loadExternalData = loadExternalData;
         window.resetForm = resetForm;
         window.toggleEditMode = toggleEditMode;
+        window.openModal = openModal;
+        window.closeModal = closeModal;
+        window.changeImage = changeImage;
+        window.playVideo = playVideo;
     </script>
 </body>
 </html>
