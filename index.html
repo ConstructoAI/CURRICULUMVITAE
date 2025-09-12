@@ -696,7 +696,77 @@
             border: 2px solid var(--navy-accent);
         }
         
-        /* Galerie Portfolio */
+        /* Galerie Portfolio - Nouveau style pleine largeur */
+        .portfolio-fullwidth {
+            background: linear-gradient(135deg, var(--navy-dark) 0%, var(--navy-primary) 100%);
+            padding: 40px 30px;
+            margin-top: 30px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .portfolio-fullwidth::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at 20% 50%, rgba(255,255,255,0.1) 0%, transparent 50%);
+            pointer-events: none;
+        }
+        
+        .portfolio-fullwidth h2 {
+            color: var(--white);
+            text-align: center;
+            font-size: 1.8em;
+            font-weight: 300;
+            letter-spacing: 2px;
+            margin-bottom: 30px;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .portfolio-grid-large {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .portfolio-item-large {
+            position: relative;
+            overflow: hidden;
+            border-radius: 12px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            transition: var(--transition);
+            cursor: pointer;
+            background: var(--gray-light);
+            aspect-ratio: 16/9;
+            border: 2px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .portfolio-item-large:hover {
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4);
+            border-color: var(--navy-accent);
+        }
+        
+        .portfolio-item-large img,
+        .portfolio-item-large video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: var(--transition);
+        }
+        
+        .portfolio-item-large:hover img,
+        .portfolio-item-large:hover video {
+            transform: scale(1.15);
+        }
+        
+        /* Anciens styles pour compatibilité */
         .portfolio-section {
             margin-top: 25px;
         }
@@ -746,14 +816,15 @@
             bottom: 0;
             left: 0;
             right: 0;
-            background: linear-gradient(to top, rgba(10, 22, 40, 0.9), transparent);
+            background: linear-gradient(to top, rgba(10, 22, 40, 0.95), transparent);
             color: var(--white);
-            padding: 10px;
+            padding: 12px;
             transform: translateY(100%);
             transition: var(--transition);
         }
         
-        .portfolio-item:hover .portfolio-overlay {
+        .portfolio-item:hover .portfolio-overlay,
+        .portfolio-item-large:hover .portfolio-overlay {
             transform: translateY(0);
         }
         
@@ -857,6 +928,22 @@
         }
         
         /* Mode impression */
+        /* Responsive pour portfolio pleine largeur */
+        @media (max-width: 850px) {
+            .portfolio-grid-large {
+                grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+                gap: 15px;
+            }
+            
+            .portfolio-fullwidth {
+                padding: 30px 20px;
+            }
+            
+            .portfolio-fullwidth h2 {
+                font-size: 1.4em;
+            }
+        }
+        
         @media print {
             @page {
                 size: letter;
@@ -918,6 +1005,10 @@
             
             .expertise-list {
                 margin-left: 20px !important;
+            }
+            
+            .portfolio-fullwidth {
+                display: none !important;
             }
         }
         
@@ -1163,98 +1254,6 @@
                     </ul>
                 </div>
                 
-                <!-- Portfolio / Réalisations visuelles -->
-                <div class="section portfolio-section">
-                    <h3>🎨 Portfolio - Réalisations Visuelles</h3>
-                    <div class="portfolio-grid">
-                        <div class="portfolio-item" onclick="openModal('SKETCH.jpg', 'Sketch Conceptuel', 'Croquis de conception architecturale')">
-                            <img src="SKETCH.jpg" alt="Sketch Conceptuel" loading="lazy">
-                            <div class="portfolio-overlay">
-                                <div class="portfolio-title">Sketch Conceptuel</div>
-                                <div class="portfolio-description">Croquis architectural</div>
-                            </div>
-                        </div>
-                        <div class="portfolio-item" onclick="openModal('SOLARIUM_01.jpg', 'Solarium - Vue 1', 'Conception 3D de solarium résidentiel')">
-                            <img src="SOLARIUM_01.jpg" alt="Solarium Vue 1" loading="lazy">
-                            <div class="portfolio-overlay">
-                                <div class="portfolio-title">Solarium - Vue 1</div>
-                                <div class="portfolio-description">Modélisation 3D</div>
-                            </div>
-                        </div>
-                        <div class="portfolio-item" onclick="openModal('SOLARIUM_02.jpg', 'Solarium - Vue 2', 'Perspective intérieure du solarium')">
-                            <img src="SOLARIUM_02.jpg" alt="Solarium Vue 2" loading="lazy">
-                            <div class="portfolio-overlay">
-                                <div class="portfolio-title">Solarium - Vue 2</div>
-                                <div class="portfolio-description">Vue intérieure</div>
-                            </div>
-                        </div>
-                        <div class="portfolio-item" onclick="openModal('SOLARIUM_03.jpg', 'Solarium - Vue 3', 'Détails de construction')">
-                            <img src="SOLARIUM_03.jpg" alt="Solarium Vue 3" loading="lazy">
-                            <div class="portfolio-overlay">
-                                <div class="portfolio-title">Solarium - Vue 3</div>
-                                <div class="portfolio-description">Détails techniques</div>
-                            </div>
-                        </div>
-                        <div class="portfolio-item" onclick="playVideo(this, 'RENDU_3D.mp4')">
-                            <video src="RENDU_3D.mp4" muted loop preload="metadata">
-                                Votre navigateur ne supporte pas la vidéo.
-                            </video>
-                            <div class="portfolio-overlay">
-                                <div class="portfolio-title">Animation 3D</div>
-                                <div class="portfolio-description">Rendu architectural animé</div>
-                            </div>
-                        </div>
-                        <div class="portfolio-item" onclick="openModal('MAISON.jpg', 'Projet Résidentiel', 'Conception architecturale résidentielle')">
-                            <img src="MAISON.jpg" alt="Projet Résidentiel" loading="lazy">
-                            <div class="portfolio-overlay">
-                                <div class="portfolio-title">Projet Résidentiel</div>
-                                <div class="portfolio-description">Architecture & Design</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- Applications en ligne -->
-                <div class="section">
-                    <h3>🚀 Applications Déployées - Open Source & Gratuites</h3>
-                    <div class="apps-grid">
-                        <a href="https://huggingface.co/spaces/Sylvainleduc/PORTAIL" target="_blank" class="app-card">
-                            <span class="app-icon">🌐</span>
-                            <span class="app-name">PORTAIL</span>
-                            <span class="app-desc">Hub central Constructo AI</span>
-                        </a>
-                        <a href="https://huggingface.co/spaces/Sylvainleduc/EXPERTS_IA" target="_blank" class="app-card">
-                            <span class="app-icon">🤖</span>
-                            <span class="app-name">EXPERTS IA</span>
-                            <span class="app-desc">60+ profils d'experts</span>
-                        </a>
-                        <a href="https://huggingface.co/spaces/Sylvainleduc/ERP_AI" target="_blank" class="app-card">
-                            <span class="app-icon">🏭</span>
-                            <span class="app-name">ERP AI</span>
-                            <span class="app-desc">61 postes industriels</span>
-                        </a>
-                        <a href="https://huggingface.co/spaces/Sylvainleduc/B2B" target="_blank" class="app-card">
-                            <span class="app-icon">🤝</span>
-                            <span class="app-name">B2B</span>
-                            <span class="app-desc">Plateforme inter-entreprises</span>
-                        </a>
-                        <a href="https://huggingface.co/spaces/Sylvainleduc/C2B" target="_blank" class="app-card">
-                            <span class="app-icon">👥</span>
-                            <span class="app-name">C2B</span>
-                            <span class="app-desc">Portail client-entreprise</span>
-                        </a>
-                        <a href="https://huggingface.co/spaces/Sylvainleduc/TAKEOFF_AI" target="_blank" class="app-card">
-                            <span class="app-icon">📏</span>
-                            <span class="app-name">TAKEOFF AI</span>
-                            <span class="app-desc">Mesures PDF intelligentes</span>
-                        </a>
-                        <a href="https://huggingface.co/spaces/Sylvainleduc/SEAOP" target="_blank" class="app-card">
-                            <span class="app-icon">📢</span>
-                            <span class="app-name">SEAOP</span>
-                            <span class="app-desc">Appels d'offres publics</span>
-                        </a>
-                    </div>
-                </div>
             </div>
             
             <!-- Colonne de droite -->
@@ -1380,6 +1379,57 @@
                                 <li><strong>Clients:</strong> Ultramar, Vaudreuil Honda, Mercedes-Benz Laval</li>
                             </ul>
                         </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Portfolio - Section pleine largeur au bas -->
+        <div class="portfolio-fullwidth">
+            <h2>🎨 PORTFOLIO - RÉALISATIONS VISUELLES</h2>
+            <div class="portfolio-grid-large">
+                <div class="portfolio-item-large" onclick="openModal('SKETCH.jpg', 'Sketch Conceptuel', 'Croquis de conception architecturale')">
+                    <img src="SKETCH.jpg" alt="Sketch Conceptuel" loading="lazy">
+                    <div class="portfolio-overlay">
+                        <div class="portfolio-title">Sketch Conceptuel</div>
+                        <div class="portfolio-description">Croquis architectural</div>
+                    </div>
+                </div>
+                <div class="portfolio-item-large" onclick="openModal('SOLARIUM_01.jpg', 'Solarium - Vue 1', 'Conception 3D de solarium résidentiel')">
+                    <img src="SOLARIUM_01.jpg" alt="Solarium Vue 1" loading="lazy">
+                    <div class="portfolio-overlay">
+                        <div class="portfolio-title">Solarium - Vue 1</div>
+                        <div class="portfolio-description">Modélisation 3D</div>
+                    </div>
+                </div>
+                <div class="portfolio-item-large" onclick="openModal('SOLARIUM_02.jpg', 'Solarium - Vue 2', 'Perspective intérieure du solarium')">
+                    <img src="SOLARIUM_02.jpg" alt="Solarium Vue 2" loading="lazy">
+                    <div class="portfolio-overlay">
+                        <div class="portfolio-title">Solarium - Vue 2</div>
+                        <div class="portfolio-description">Vue intérieure</div>
+                    </div>
+                </div>
+                <div class="portfolio-item-large" onclick="openModal('SOLARIUM_03.jpg', 'Solarium - Vue 3', 'Détails de construction')">
+                    <img src="SOLARIUM_03.jpg" alt="Solarium Vue 3" loading="lazy">
+                    <div class="portfolio-overlay">
+                        <div class="portfolio-title">Solarium - Vue 3</div>
+                        <div class="portfolio-description">Détails techniques</div>
+                    </div>
+                </div>
+                <div class="portfolio-item-large" onclick="playVideo(this, 'RENDU_3D.mp4')">
+                    <video src="RENDU_3D.mp4" muted loop preload="metadata">
+                        Votre navigateur ne supporte pas la vidéo.
+                    </video>
+                    <div class="portfolio-overlay">
+                        <div class="portfolio-title">Animation 3D</div>
+                        <div class="portfolio-description">Rendu architectural animé</div>
+                    </div>
+                </div>
+                <div class="portfolio-item-large" onclick="openModal('MAISON.jpg', 'Projet Résidentiel', 'Conception architecturale résidentielle')">
+                    <img src="MAISON.jpg" alt="Projet Résidentiel" loading="lazy">
+                    <div class="portfolio-overlay">
+                        <div class="portfolio-title">Projet Résidentiel</div>
+                        <div class="portfolio-description">Architecture & Design</div>
                     </div>
                 </div>
             </div>
